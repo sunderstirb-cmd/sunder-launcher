@@ -1,11 +1,23 @@
 # Sunder Launcher
 
 A desktop launcher for **Minecraft: Java Edition** — version management, mod loaders,
-a resource center, and a skin studio with a 3D preview.
+a resource center, a LAN/multiplayer helper, and a skin studio with a 3D preview.
 
 Independent hobby project. Not affiliated with Mojang, Microsoft, or any other launcher.
 
 ![Home](screenshots/home.png)
+
+<!-- download:start -->
+## Download
+
+**[Latest release](https://github.com/sunderstirb-cmd/sunder-launcher/releases/latest)** —
+`Sunder Launcher-x.y.z-x64.exe` (Windows 10/11, x64). Per-user install, no admin rights,
+and it does not remove your data on uninstall.
+
+Once installed, the launcher updates itself: it checks this repository's newest release,
+shows what changed, and installs the new version in place (with a `sha256` check before
+anything is installed).
+<!-- download:end -->
 
 ---
 
@@ -50,6 +62,16 @@ Independent hobby project. Not affiliated with Mojang, Microsoft, or any other l
   palette-only), running fully offline. For higher quality the app hands off to a
   third-party generator (LUMEN Weaver) and imports the result back.
 
+### Playing together (LAN / internet)
+- The launcher reads the port Minecraft opens for "Open to LAN" **by asking the OS which
+  port the running game process is listening on** (not by scraping logs), then offers
+  three ways to reach it: **public IPv6** (no router setup), a short-lease **UPnP**
+  mapping (5-minute lease, renewed, ownership-checked before deletion), and
+  **Radmin VPN** for networks where neither works.
+- A single **invite string** carries the address list plus which instance and game
+  version it is; the other side pastes it once, and can write the room straight into
+  their multiplayer server list or launch right into it (Quick Play on 1.20+).
+
 ![Skin studio](screenshots/skin-studio.png)
 
 ---
@@ -71,13 +93,16 @@ it does **not** cut any corners:
 
 - Sign-in happens on **Microsoft's own pages**. The launcher never asks for, sees or
   stores an account password — it only ever receives OAuth tokens.
-- The OAuth client is a **public client** (no client secret). The user registers their
-  own Azure application and enters its Application (Client) ID at runtime; it is never
-  bundled or redistributed with the launcher.
+- The OAuth client is a **public client** (no client secret). The build ships with an
+  Application (Client) ID that has been **approved through Mojang's AppID review**, so
+  Microsoft sign-in works out of the box; users who prefer their own application can
+  enter their own Client ID at runtime and it takes precedence. No secret is ever
+  bundled, and the launcher only ever sends the OAuth authorization-code + PKCE flow
+  (or the device-code flow) that Microsoft documents for public clients.
 - Access to Minecraft's APIs requires the application to be **approved through Mojang's
-  AppID review process**. Until an application is approved, Minecraft service login
-  returns `403 Invalid app registration` — the launcher reports this clearly instead of
-  working around it.
+  AppID review process**. If an application is not approved, Minecraft service login
+  returns `403 Invalid app registration` — the launcher reports this clearly, points at
+  the official form, and never works around it.
 - The launcher **does not distribute game files**. Everything is downloaded from
   Mojang's official endpoints (`piston-meta.mojang.com`, `launchermeta.mojang.com`,
   `libraries.minecraft.net`, `resources.download.minecraft.net`) and verified against
@@ -106,15 +131,18 @@ renderer, with `three.js` / `skinview3d` for the 3D preview.
 ### Tests
 
 There is no unit-test framework; behaviour is verified by a set of standalone assertion
-scripts (678 assertions across 19 suites at the time of writing) that exercise the real
-code paths — including a mock authlib-injector server, a real Electron process for
-IPC/preload and clipboard behaviour, and pixel-level checks for skin generation:
+scripts <!-- tests:start -->(**1925 assertions across 33 suites** at the time of writing)<!-- tests:end -->
+that exercise the real code paths — including a mock authlib-injector server, a mock
+UPnP router, a real Electron process for IPC/preload and clipboard behaviour, a real
+TCP listener for the LAN port adapter, and pixel-level checks for skin generation:
 
 ```bash
 npx vite-node tools/verify-unzip.ts          # zip extraction, path traversal guards
 npx vite-node tools/verify-forge-classpath.ts# Forge 1.17+ launch arguments
 npx vite-node tools/verify-loopback.ts       # OAuth loopback + PKCE flow
 npx vite-node tools/verify-yggdrasil.ts      # authlib-injector flow (local mock server)
+npx vite-node tools/verify-lan.ts            # LAN: live port, UPnP lease, invite, dual-stack
+npx vite-node tools/verify-update.ts         # self-update: version compare, download, sha256
 npx vite-node tools/verify-skinify.ts        # image → skin structure mapping
 npx vite-node tools/verify-skin-generate.ts  # text/image → skin generation
 npx vite-node tools/verify-ipc-bridge.ts     # IPC error propagation (real Electron)
