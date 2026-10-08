@@ -1,11 +1,11 @@
 {
   "version": "9.9.9",
-  "url": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/download/v1.0.6/Sunder.Launcher-1.0.6-x64.exe",
+  "url": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/download/v1.0.7/Sunder.Launcher-1.0.7-x64.exe",
   "mirrors": [
-    "https://api.github.com/repos/sunderstirb-cmd/sunder-launcher/releases/assets/623299370"
+    "https://api.github.com/repos/sunderstirb-cmd/sunder-launcher/releases/assets/623317348"
   ],
-  "sha256": "f09c21437df21c1165284883c4369132a40e09149e870eb222ad1dda43d35dc6",
-  "size": 114534640,
+  "sha256": "d5061e00d92a03da7781bdaa8381ca09f0bdf63abb8ad9e40e75578284333c80",
+  "size": 114535058,
   "notes": "用于验证自更新闭环的测试清单，版本号故意写成 9.9.9。",
-  "page": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/tag/v1.0.6"
+  "page": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/tag/v1.0.7"
 }
