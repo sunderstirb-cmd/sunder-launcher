@@ -1,0 +1,9 @@
+{
+  "_": "这份文件是启动器的远程配置：中继地址 / CurseForge Key / 微软 client_id。改这里即可生效，不用重新发版（启动器 24 小时内会拉到新值）。",
+  "relay": {
+    "server": "116.62.241.114",
+    "port": 7000,
+    "token": "sunder-esjvavsqkhxuxa",
+    "portRange": [30000, 30100]
+  }
+}
