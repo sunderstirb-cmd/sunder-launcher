@@ -4,6 +4,10 @@
     "server": "116.62.241.114",
     "port": 7000,
     "token": "sunder-esjvavsqkhxuxa",
-    "portRange": [30000, 30100]
-  }
+    "portRange": [
+      30000,
+      30100
+    ]
+  },
+  "friendsUrl": "http://116.62.241.114:7801"
 }
