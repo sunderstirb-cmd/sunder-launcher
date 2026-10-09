@@ -74,9 +74,14 @@ anything is installed).
 - An **external reachability self-test**: the launcher watches the port it opened and
   records every incoming connection, so you can open the address on your phone
   (mobile data, Wi-Fi off) and find out whether the outside really gets in — a browser
-  gets a small "you're connected" page, and the launcher tells you whether that
-  connection came from the internet or from a device on the same network (it will not
-  report a same-network or same-machine connection as success).
+  gets a small "you're connected" page (a QR code is drawn for you, so nobody has to type
+  an IPv6 address), and the launcher tells you whether that connection came from the
+  internet or from a device on the same network (it will not report a same-network or
+  same-machine connection as success).
+- When nothing arrives, it walks through the four layers that can block inbound — the
+  local firewall (read, and fixed from the launcher with one UAC prompt), the router, the
+  ISP's ONT, and the carrier — and says plainly when opening a port is a lost cause, in
+  which case the built-in Radmin VPN path (or a tunnel) is the honest answer.
 
 ![Skin studio](screenshots/skin-studio.png)
 
@@ -137,7 +142,7 @@ renderer, with `three.js` / `skinview3d` for the 3D preview.
 ### Tests
 
 There is no unit-test framework; behaviour is verified by a set of standalone assertion
-scripts <!-- tests:start -->(**2126 assertions across 35 suites** at the time of writing)<!-- tests:end -->
+scripts <!-- tests:start -->(**2145 assertions across 35 suites** at the time of writing)<!-- tests:end -->
 that exercise the real code paths — including a mock authlib-injector server, a mock
 UPnP router, a real Electron process for IPC/preload and clipboard behaviour, a real
 TCP listener for the LAN port adapter, and pixel-level checks for skin generation:
