@@ -81,15 +81,19 @@ anything is installed).
 - When nothing arrives, it walks through the four layers that can block inbound — the
   local firewall (read, and fixed from the launcher with one UAC prompt), the router, the
   ISP's ONT, and the carrier — and says plainly when opening a port is a lost cause.
-- **Built-in tunnels** for exactly those cases (double NAT, carrier-side filtering): the
-  launcher downloads and manages the agent itself — no extra install, no admin rights —
-  and offers three routes so that at least one works. **playit.gg** (signed agent verified
-  by sha256, fixed public address; the launcher keeps a stable local port so the mapping
-  only has to be configured once), **serveo** (uses the OpenSSH client already present on
-  Windows 10+, zero download and no account — the public relay rate-limits anonymous
-  users, so it is best-effort and its own error text is shown verbatim), and **a custom
-  command** for ngrok / frp / self-hosted relays (`{port}` is substituted). The assigned
-  address comes with a QR code and is parsed per provider — never guessed.
+- **Built-in tunnels** for exactly those cases (double NAT, carrier-side filtering): pick
+  one of the four blocks on the LAN page and that block is the link this room uses.
+  **The launcher ships its own relay as the default route** — nothing to install, nothing to
+  fill in: the public port is picked from the range the server allows and the address only
+  appears once the relay reports `start proxy success`. **serveo** is the fallback that needs
+  no download at all (the OpenSSH client already present on Windows 10+; the public relay
+  rate-limits anonymous users, so its own error text is shown verbatim, and since it hands
+  out a *domain* — while the invite string only accepts literal IPs — that route sends the
+  address rather than an invite). **Radmin** is the third cross-network route (both sides
+  install it once). If the link you picked does not come up, the launcher walks the fixed
+  order relay → Radmin → serveo, keeps every failure reason, and tells you plainly that it
+  switched — it never swaps routes silently. The assigned address comes with a QR code and
+  is parsed per provider — never guessed.
 
 ![Skin studio](screenshots/skin-studio.png)
 
