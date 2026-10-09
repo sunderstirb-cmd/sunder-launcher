@@ -71,6 +71,12 @@ anything is installed).
 - A single **invite string** carries the address list plus which instance and game
   version it is; the other side pastes it once, and can write the room straight into
   their multiplayer server list or launch right into it (Quick Play on 1.20+).
+- An **external reachability self-test**: the launcher watches the port it opened and
+  records every incoming connection, so you can open the address on your phone
+  (mobile data, Wi-Fi off) and find out whether the outside really gets in — a browser
+  gets a small "you're connected" page, and the launcher tells you whether that
+  connection came from the internet or from a device on the same network (it will not
+  report a same-network or same-machine connection as success).
 
 ![Skin studio](screenshots/skin-studio.png)
 
@@ -131,7 +137,7 @@ renderer, with `three.js` / `skinview3d` for the 3D preview.
 ### Tests
 
 There is no unit-test framework; behaviour is verified by a set of standalone assertion
-scripts <!-- tests:start -->(**1925 assertions across 33 suites** at the time of writing)<!-- tests:end -->
+scripts <!-- tests:start -->(**2212 assertions across 34 suites** at the time of writing)<!-- tests:end -->
 that exercise the real code paths — including a mock authlib-injector server, a mock
 UPnP router, a real Electron process for IPC/preload and clipboard behaviour, a real
 TCP listener for the LAN port adapter, and pixel-level checks for skin generation:
@@ -142,6 +148,7 @@ npx vite-node tools/verify-forge-classpath.ts# Forge 1.17+ launch arguments
 npx vite-node tools/verify-loopback.ts       # OAuth loopback + PKCE flow
 npx vite-node tools/verify-yggdrasil.ts      # authlib-injector flow (local mock server)
 npx vite-node tools/verify-lan.ts            # LAN: live port, UPnP lease, invite, dual-stack
+npx vite-node tools/verify-direct-connect.ts  # direct-connect args: Quick Play from the jar, IPv6 split
 npx vite-node tools/verify-update.ts         # self-update: version compare, download, sha256
 npx vite-node tools/verify-skinify.ts        # image → skin structure mapping
 npx vite-node tools/verify-skin-generate.ts  # text/image → skin generation
