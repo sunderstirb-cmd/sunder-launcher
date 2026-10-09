@@ -62,6 +62,19 @@ anything is installed).
   palette-only), running fully offline. For higher quality the app hands off to a
   third-party generator (LUMEN Weaver) and imports the result back.
 
+### Home
+- Your own skin stands next to the account card as a real 3D model, waving — no panel
+  behind it. It reads the account's current skin (or the newest one in your local skin
+  library) and simply does not appear when there is no skin, rather than showing an
+  invisible model. The area reserves room for three models side by side.
+- **Today's news** pulls the latest Minecraft patch notes (releases and snapshots) and the
+  most-downloaded community modpacks. Every row carries the source's own timestamp — "2
+  days ago", never a faked "today" — and each source succeeds or fails on its own, so a
+  dead feed is named instead of papered over. Outbound links go through a host allowlist;
+  a URL the feed hands us that fails it is dropped rather than opened.
+- The launcher itself is one click away: pick a version and press play, with the loader,
+  mod count and Java requirement shown right below.
+
 ### Playing together (LAN / internet)
 - The launcher reads the port Minecraft opens for "Open to LAN" **by asking the OS which
   port the running game process is listening on** (not by scraping logs), then offers
