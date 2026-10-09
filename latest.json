@@ -1,8 +1,8 @@
 {
-  "version": "1.4.0",
-  "url": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/download/v1.4.0/Sunder.Launcher-1.4.0-x64.exe",
-  "sha256": "6ed8be6fff1de442d67ac8b32a2eea476fed39950aff93f9503eb8977bf841d0",
-  "size": 114596911,
-  "notes": "Sunder Launcher 1.4.0",
-  "page": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/tag/v1.4.0"
+  "version": "1.4.1",
+  "url": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/download/v1.4.1/Sunder.Launcher-1.4.1-x64.exe",
+  "sha256": "fae969d10e0f63a54b9b8f6f3d52857c5a4aaee5332c03e8371a3dc908077c50",
+  "size": 114597922,
+  "notes": "Sunder Launcher 1.4.1",
+  "page": "https://github.com/sunderstirb-cmd/sunder-launcher/releases/tag/v1.4.1"
 }
