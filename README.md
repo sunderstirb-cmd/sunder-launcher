@@ -137,7 +137,7 @@ renderer, with `three.js` / `skinview3d` for the 3D preview.
 ### Tests
 
 There is no unit-test framework; behaviour is verified by a set of standalone assertion
-scripts <!-- tests:start -->(**2212 assertions across 34 suites** at the time of writing)<!-- tests:end -->
+scripts <!-- tests:start -->(**2126 assertions across 35 suites** at the time of writing)<!-- tests:end -->
 that exercise the real code paths — including a mock authlib-injector server, a mock
 UPnP router, a real Electron process for IPC/preload and clipboard behaviour, a real
 TCP listener for the LAN port adapter, and pixel-level checks for skin generation:
