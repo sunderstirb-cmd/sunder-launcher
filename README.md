@@ -80,8 +80,16 @@ anything is installed).
   same-machine connection as success).
 - When nothing arrives, it walks through the four layers that can block inbound — the
   local firewall (read, and fixed from the launcher with one UAC prompt), the router, the
-  ISP's ONT, and the carrier — and says plainly when opening a port is a lost cause, in
-  which case the built-in Radmin VPN path (or a tunnel) is the honest answer.
+  ISP's ONT, and the carrier — and says plainly when opening a port is a lost cause.
+- **Built-in tunnels** for exactly those cases (double NAT, carrier-side filtering): the
+  launcher downloads and manages the agent itself — no extra install, no admin rights —
+  and offers three routes so that at least one works. **playit.gg** (signed agent verified
+  by sha256, fixed public address; the launcher keeps a stable local port so the mapping
+  only has to be configured once), **serveo** (uses the OpenSSH client already present on
+  Windows 10+, zero download and no account — the public relay rate-limits anonymous
+  users, so it is best-effort and its own error text is shown verbatim), and **a custom
+  command** for ngrok / frp / self-hosted relays (`{port}` is substituted). The assigned
+  address comes with a QR code and is parsed per provider — never guessed.
 
 ![Skin studio](screenshots/skin-studio.png)
 
@@ -142,7 +150,7 @@ renderer, with `three.js` / `skinview3d` for the 3D preview.
 ### Tests
 
 There is no unit-test framework; behaviour is verified by a set of standalone assertion
-scripts <!-- tests:start -->(**2145 assertions across 35 suites** at the time of writing)<!-- tests:end -->
+scripts <!-- tests:start -->(**2185 assertions across 36 suites** at the time of writing)<!-- tests:end -->
 that exercise the real code paths — including a mock authlib-injector server, a mock
 UPnP router, a real Electron process for IPC/preload and clipboard behaviour, a real
 TCP listener for the LAN port adapter, and pixel-level checks for skin generation:
